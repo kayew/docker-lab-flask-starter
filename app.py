@@ -9,7 +9,7 @@ import os
 from pathlib import Path
 from uuid import uuid4
 
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -36,6 +36,11 @@ def save_tasks(tasks):
 @app.get("/")
 def index():
     return render_template("index.html", tasks=load_tasks())
+
+
+@app.get("/tasks")
+def get_tasks():
+    return jsonify(load_tasks())
 
 
 @app.post("/tasks")

@@ -20,3 +20,5 @@ python app.py
 ```
 
 Visit http://localhost:5000 and add or remove tasks.
+
+The current tasks are also available as JSON from `GET /api/tasks`.
