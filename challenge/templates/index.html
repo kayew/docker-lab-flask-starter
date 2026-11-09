@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notes</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="card">
+    <h1>Notes</h1>
+
+    <form action="{{ url_for('add_note') }}" method="post" class="add-form">
+      <label for="title" class="sr-only">Title</label>
+      <input id="title" name="title" type="text" maxlength="80" placeholder="Title" required>
+      <label for="body" class="sr-only">Note</label>
+      <input id="body" name="body" type="text" maxlength="500" placeholder="Note">
+      <button type="submit">Save</button>
+    </form>
+
+    {% if notes %}
+      <ul class="tasks">
+        {% for note in notes %}
+          <li>
+            <span><strong>{{ note.title }}</strong>{% if note.body %}: {{ note.body }}{% endif %}</span>
+            <form action="{{ url_for('delete_note', note_id=note.id) }}" method="post">
+              <button class="delete" type="submit" aria-label="Delete {{ note.title }}">Delete</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty">No notes yet.</p>
+    {% endif %}
+  </main>
+</body>
+</html>
